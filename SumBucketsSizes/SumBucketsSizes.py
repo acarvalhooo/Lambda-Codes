@@ -9,7 +9,7 @@ def lambda_handler(event, context):
         for obj in bucket.objects.all():
             total_size += obj.size
 
-    total_size_mb = total_size / 2**20
+    total_size_mb = total_size / 2**20 # Se quiser alterar a medida de MB para TB, altere o número 20 por 40
     
 # Condição que verifica se total_size_mb é maior ou igual a 50
     if total_size_mb >= 50:
