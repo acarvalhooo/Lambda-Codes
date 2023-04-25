@@ -9,15 +9,16 @@ def lambda_handler(event, context):
         for obj in bucket.objects.all():
             total_size += obj.size
 
-    total_size_mb = total_size / 2**20 # Se quiser alterar a medida de MB para TB, altere o número 20 por 40
+# Converte Bytes para GigaBytes e arredona para apenas 3 casas decimais após a vírgula
+    total_size_gb = round(total_size / 2**30, 3)
     
-# Condição que verifica se total_size_mb é maior ou igual a 50
-    if total_size_mb >= 50:
+# Condição que verifica se total_size_gb é maior ou igual a 30720 GB
+    if total_size_gb >= 30720:
         sns = boto3.client('sns')
-        message = f"O seu bucket chegou a {total_size_mb} MB."
-        topic_arn = 'xxx' # Altere o xxx para o arn do tópico do SNS
+        message = f"O seu bucket chegou a {total_size_gb} GB."
+        topic_arn = 'xxx' # Troque o XXX pelo ARN do tópico desejado do SNS
         sns.publish(TopicArn=topic_arn, Message=message)
 
     return {
-        'total_size_mb': total_size_mb
+        'total_size_gb': total_size_gb
     }
