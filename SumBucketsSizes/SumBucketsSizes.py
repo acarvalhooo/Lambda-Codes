@@ -1,7 +1,7 @@
-# Importação da biblioteca Boto3
+# Importing boto3 library
 import boto3
 
-# Soma do armazenamento total de todos os buckets
+# Realize the total sum size of all buckets
 def lambda_handler(event, context):
     s3 = boto3.resource('s3')
     total_size = 0
@@ -9,14 +9,14 @@ def lambda_handler(event, context):
         for obj in bucket.objects.all():
             total_size += obj.size
 
-# Converte Bytes para GigaBytes e arredona para apenas 3 casas decimais após a vírgula
+# Convert Bytes to GigaBytes and round to only 3 decimal places
     total_size_gb = round(total_size / 2**30, 3)
     
-# Condição que verifica se total_size_gb é maior ou igual a 30720 GB
+# Condition that check if total_size_gb is equal to or bigger than 30720 GB
     if total_size_gb >= 30720:
         sns = boto3.client('sns')
         message = f"O seu bucket chegou a {total_size_gb} GB."
-        topic_arn = 'xxx' # Troque o XXX pelo ARN do tópico desejado do SNS
+        topic_arn = 'xxx' # Change XXX for ARN topic of SNS
         sns.publish(TopicArn=topic_arn, Message=message)
 
     return {
