@@ -12,7 +12,7 @@ def lambda_handler(event, context):
 # Convert Bytes to GigaBytes and round to only 3 decimal places
     total_size_gb = round(total_size / 2**30, 3)
     
-# Condition that check if total_size_gb is equal to or bigger than 30720 GB
+# Condition that check if total_size_gb is equal to or bigger than 30720 GB and activate a SNS topic
     if total_size_gb >= 30720:
         sns = boto3.client('sns')
         message = f"O seu bucket chegou a {total_size_gb} GB."
