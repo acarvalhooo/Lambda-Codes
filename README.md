@@ -1,3 +1,3 @@
 # Lambda-Codes
 
-Repository created for store lambda codes.
+This repository was created to store lambda codes.
