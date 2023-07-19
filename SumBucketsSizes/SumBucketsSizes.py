@@ -15,8 +15,8 @@ def lambda_handler(event, context):
 # Condition that check if total_size_gb is equal to or bigger than 30720 GB and activate a SNS topic
     if total_size_gb >= 30720:
         sns = boto3.client('sns')
-        message = f"O seu bucket chegou a {total_size_gb} GB."
-        topic_arn = 'xxx' # Change XXX for ARN topic of SNS
+        message = f"The total size of your buckets is {total_size_gb} GB."
+        topic_arn = 'xxx' # Change xxx for the ARN topic of SNS
         sns.publish(TopicArn=topic_arn, Message=message)
 
     return {
