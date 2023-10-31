@@ -12,6 +12,7 @@ def lambda_handler(event, context):
 # Convert bytes to gigabytes and round to only 3 decimal places
     total_size_gb = round(total_size / 2**30, 3)
 
+# Print value in screen
     return {
         'total_size_gb': total_size_gb
     }
