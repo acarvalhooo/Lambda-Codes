@@ -9,15 +9,8 @@ def lambda_handler(event, context):
         for obj in bucket.objects.all():
             total_size += obj.size
 
-# Convert Bytes to GigaBytes and round to only 3 decimal places
+# Convert bytes to gigabytes and round to only 3 decimal places
     total_size_gb = round(total_size / 2**30, 3)
-    
-# Condition that check if total_size_gb is equal to or bigger than 30720 GB and activate a SNS topic
-    if total_size_gb >= 30720:
-        sns = boto3.client('sns')
-        message = f"The total size of your buckets is {total_size_gb} GB."
-        topic_arn = 'xxx' # Change xxx for the ARN topic of SNS
-        sns.publish(TopicArn=topic_arn, Message=message)
 
     return {
         'total_size_gb': total_size_gb
